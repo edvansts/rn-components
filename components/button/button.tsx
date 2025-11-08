@@ -58,7 +58,7 @@ export function Button({ children, onPress }: ButtonProps) {
     });
 
   const fillableElementStyle = useAnimatedStyle(() => {
-    const baseSize = 32; // Small starting circle
+    const baseSize = 40; // Small starting circle
 
     return {
       position: "absolute",
