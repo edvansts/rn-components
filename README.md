@@ -3,7 +3,11 @@
 Um componente de botão customizado para React Native com efeito ripple animado, construído com React Native Reanimated e Gesture Handler.
 
 
+<div align="center">
+
 https://github.com/user-attachments/assets/a7df8a0b-e503-4e46-95bc-c60ece43d1ef
+
+</div>
 
 
 
