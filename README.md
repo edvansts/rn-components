@@ -1,50 +1,135 @@
-# Welcome to your Expo app 👋
+# 🎯 Custom Button Component
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+Um componente de botão customizado para React Native com efeito ripple animado, construído com React Native Reanimated e Gesture Handler.
 
-## Get started
+## ✨ Características
 
-1. Install dependencies
+- 🎨 **Efeito Ripple**: Animação que inicia no ponto exato do toque
+- 🎯 **Adaptável**: A animação se ajusta dinamicamente ao tamanho do botão
+- 🔒 **Limitado**: Animação respeitando as bordas do componente
+- ⚡ **Performance**: Utiliza React Native Reanimated para animações fluidas
+- 🎭 **Acessível**: Suporte completo a gestos e feedback visual
 
-   ```bash
-   npm install
-   ```
+## 📦 Dependências
 
-2. Start the app
-
-   ```bash
-   npx expo start
-   ```
-
-In the output, you'll find options to open the app in a
-
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
-
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
-
-## Get a fresh project
-
-When you're ready, run:
-
-```bash
-npm run reset-project
+```json
+{
+  "react-native-reanimated": "^3.x.x",
+  "react-native-gesture-handler": "^2.x.x"
+}
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+## 🚀 Instalação
 
-## Learn more
+Certifique-se de ter as dependências instaladas e configuradas:
 
-To learn more about developing your project with Expo, look at the following resources:
+```bash
+npm install react-native-reanimated react-native-gesture-handler
+```
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+## 🏃‍♂️ Como Rodar o Projeto
 
-## Join the community
+### Pré-requisitos
 
-Join our community of developers creating universal apps.
+- Node.js 18+
+- React Native CLI ou Expo CLI
+- Android Studio (para Android) ou Xcode (para iOS)
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+### 1. Clone e instale dependências
+
+```bash
+git clone <repository-url>
+cd rn-components
+npm install
+```
+
+### 2. Para iOS
+
+```bash
+cd ios && pod install && cd ..
+npx react-native run-ios
+```
+
+### 3. Para Android
+
+```bash
+npx react-native run-android
+```
+
+### 4. Com Expo (se aplicável)
+
+```bash
+npx expo start
+```
+
+### 🔍 Testando o componente
+
+Após rodar o projeto, você pode testar o botão customizado:
+
+1. Abra o app no simulador/dispositivo
+2. Toque no botão para ver o efeito ripple
+3. Observe como a animação começa no ponto exato do toque
+4. Teste em diferentes posições do botão
+
+## 🎮 Uso Básico
+
+```tsx
+import { Button } from "./components/button/button";
+
+export default function App() {
+  const handlePress = () => {
+    console.log("Botão pressionado!");
+  };
+
+  return <Button onPress={handlePress}>Clique aqui</Button>;
+}
+```
+
+## 🔬 Como Funciona
+
+### 1. Detecção do Toque
+
+```tsx
+const gesture = Gesture.Tap().onTouchesDown((event) => {
+  // Captura posição absoluta do toque
+  const touchX = event.allTouches[0].absoluteX;
+  const touchY = event.allTouches[0].absoluteY;
+});
+```
+
+### 2. Cálculo da Posição Relativa
+
+```tsx
+const calculateTouchPosition = (absoluteX: number, absoluteY: number) => {
+  buttonRef.current?.measure((x, y, width, height, pageX, pageY) => {
+    const touchX = absoluteX - pageX;
+    const touchY = absoluteY - pageY;
+
+    rippleX.value = touchX;
+    rippleY.value = touchY;
+  });
+};
+```
+
+### 3. Animação do Ripple
+
+```tsx
+const fillableElementStyle = useAnimatedStyle(() => {
+  return {
+    transform: [
+      { translateX: rippleX.value - baseSize / 2 },
+      { translateY: rippleY.value - baseSize / 2 },
+      { scale: rippleScale.value },
+    ],
+    opacity: rippleOpacity.value,
+  };
+});
+```
+
+## 📄 Licença
+
+MIT License
+
+---
+
+Feito com ❤️ usando React Native

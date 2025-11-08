@@ -9,8 +9,11 @@ export default function HomeScreen() {
         justifyContent: "center",
         alignItems: "center",
         padding: 16,
+        gap: 16,
       }}
     >
+      <Button />
+
       <Button />
     </View>
   );
